@@ -50,6 +50,13 @@ cacheSolve <- function(x) {
 # such that the caller # doesn't need to know to explicitly solve and cache the result. 
 # The inverse is calculated lazily (ie on first request) and the cached result is returned 
 # until the the matrix is replaced -- wherupon the next call recalculates.
+#
+# This is better than the prior example because:
+# 1) The user is not required to manually cache the inverse matrix, so there's no way
+#       to call getInverse() and get a NULL result
+# 2) Since the user is not required to manually cache the inverse matrix, the inverse is
+#       only calculated as and when it is needed, saving resources if the inverse is not
+#       required, say in a list of matrixes when the outer logic exits a loop earlier
 
 makeSelfCachingMatrix <- function(x = matrix()) {
     cachedInverse <- NULL
